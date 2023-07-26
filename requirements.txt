@@ -1,0 +1,9 @@
+The package requirements for this Python program are as follows:
+
+- pandas
+- numpy
+- scikit-learn
+- tensorflow
+- matplotlib
+- seaborn
+- reportlab
