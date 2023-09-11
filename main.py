@@ -1,17 +1,15 @@
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-import seaborn as sns
-import matplotlib.pyplot as plt
-from tensorflow.keras.callbacks import EarlyStopping
-from tensorflow.keras.layers import LSTM, Dense
-from tensorflow.keras.models import Sequential
-from sklearn.metrics import accuracy_score, confusion_matrix
-from sklearn.model_selection import train_test_split
-from sklearn.cluster import KMeans, DBSCAN
-from sklearn.preprocessing import StandardScaler
-import numpy as np
 import pandas as pd
-The Python script has been optimized. Here are the optimized versions of the script:
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans, DBSCAN
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, confusion_matrix
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.callbacks import EarlyStopping
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+Optimized Python script:
 
 ```python
 
@@ -58,6 +56,17 @@ def evaluate_model(model, X_test, y_test):
     return accuracy, conf_matrix
 
 
+def generate_report():
+    # Report Generation
+    report = canvas.Canvas("customer_behavior_report.pdf", pagesize=letter)
+    report.setFont("Helvetica", 12)
+    report.drawString(
+        50, 800, "Customer Behavior Analysis and Prediction Report")
+    report.drawString(50, 780, "Summary:")
+    # Add a summary of the findings and recommendations
+    report.save()
+
+
 # Read customer behavior data
 data = pd.read_csv("customer_behavior_data.csv")
 
@@ -78,19 +87,16 @@ model = rnn_model(X_train, y_train)
 accuracy, conf_matrix = evaluate_model(model, X_test, y_test)
 
 # Prediction of Customer Actions
+scaler = StandardScaler()
+scaler.fit(X)
 future_data_scaled = scaler.transform(future_data)
 future_actions = model.predict_classes(future_data_scaled.reshape(
     (future_data_scaled.shape[0], future_data_scaled.shape[1], 1)))
 
 # Statistical Analysis and Visualization
 
-# Report Generation
-report = canvas.Canvas("customer_behavior_report.pdf", pagesize=letter)
-report.setFont("Helvetica", 12)
-report.drawString(50, 800, "Customer Behavior Analysis and Prediction Report")
-report.drawString(50, 780, "Summary:")
-# Add a summary of the findings and recommendations
-report.save()
+# Generate Report
+generate_report()
 ```
 
-Please make sure to replace any necessary variables and functions, as they might have been omitted from the provided code snippet.
+Note: Replace any necessary variables and functions, as they might have been omitted from the provided code snippet.
